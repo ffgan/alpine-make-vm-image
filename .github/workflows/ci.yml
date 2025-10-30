@@ -53,6 +53,21 @@ jobs:
               --script-chroot \
               alpine-uefi-$(date +%Y-%m-%d).qcow2 -- ./example/configure.sh
 
+      - name: Build image for riscv64 with UEFI mode
+        run: |
+          sudo ./alpine-make-vm-image \
+            --arch riscv64 \
+            --image-format qcow2 \
+            --image-size 2G \
+            --repositories-file example/repositories \
+            --packages "$(cat example/packages)"  \
+            --fs-skel-dir example/rootfs \
+            --fs-skel-chown root:root \
+            -k lts \
+            --script-chroot alpine-riscv64-$(date +%Y-%m-%d).qcow2 \
+            -- ./example/configure.sh
+
+
       - name: Install qemu-aarch64 and register in binfmt
         uses: jirutka/setup-alpine@v1
         with:

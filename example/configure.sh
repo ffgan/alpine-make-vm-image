@@ -36,3 +36,28 @@ rc-update add termencoding boot
 
 step 'List /usr/local/bin'
 ls -la /usr/local/bin
+
+if [ "$(uname -m)" = "riscv64" ]; then
+	sed -i '/^#ttyS0::respawn/s/^#//' /etc/inittab
+	apk update
+	apk add --no-cache grub-efi efibootmgr
+	
+	if [ -d /boot/efi ]; then
+		EFI_DIR=/boot/efi
+	else
+		EFI_DIR=/boot
+		mkdir -p /boot/EFI
+	fi
+	grub-install --target=riscv64-efi --efi-directory="$EFI_DIR" --bootloader-id=Alpine --removable
+	cat > /etc/default/grub <<'EOF'
+GRUB_TIMEOUT=5
+GRUB_CMDLINE_LINUX_DEFAULT="rootfstype=ext4 modules=kms,scsi,virtio console=ttyS0"
+GRUB_TERMINAL_INPUT=console
+GRUB_TERMINAL_OUTPUT=console
+EOF
+	grub-mkconfig -o /boot/grub/grub.cfg
+	mkdir -p "$EFI_DIR/EFI/BOOT"
+	if [ -f "$EFI_DIR/EFI/Alpine/grubriscv64.efi" ]; then
+		cp "$EFI_DIR/EFI/Alpine/grubriscv64.efi" "$EFI_DIR/EFI/BOOT/bootriscv64.efi"
+	fi
+fi
