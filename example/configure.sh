@@ -54,7 +54,6 @@ GRUB_TIMEOUT=5
 GRUB_CMDLINE_LINUX_DEFAULT="rootfstype=ext4 modules=kms,scsi,virtio console=ttyS0"
 GRUB_TERMINAL_INPUT=console
 GRUB_TERMINAL_OUTPUT=console
-GRUB_DISABLE_OS_PROBER=true
 EOF
 	grub-mkconfig -o /boot/grub/grub.cfg
 	mkdir -p "$EFI_DIR/EFI/BOOT"
