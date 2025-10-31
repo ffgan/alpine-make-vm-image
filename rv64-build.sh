@@ -1,7 +1,7 @@
 ./alpine-make-vm-image \
 --arch riscv64 \
 --image-format qcow2 \
---image-size 2G \
+--image-size 250M \
 --repositories-file example/repositories \
 --packages "$(cat example/packages)"  \
 --fs-skel-dir example/rootfs \
