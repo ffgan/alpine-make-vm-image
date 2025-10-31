@@ -6,6 +6,7 @@
 --packages "$(cat example/packages)"  \
 --fs-skel-dir example/rootfs \
 --fs-skel-chown root:root \
+--serial-console \
 -k lts \
 --script-chroot alpine-riscv64-$(date +%Y-%m-%d).qcow2 \
 -- ./example/configure.sh

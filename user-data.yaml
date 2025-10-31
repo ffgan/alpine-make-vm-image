@@ -1,0 +1,4 @@
+#cloud-config
+
+runcmd:
+  - touch /etc/cloud/cloud-init.disabled

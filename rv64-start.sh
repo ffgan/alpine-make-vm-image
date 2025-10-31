@@ -1,11 +1,12 @@
 qemu-system-riscv64 \
+-smp 4 \
 -m 4G \
 -machine virt,acpi=off \
 -device virtio-net-pci,netdev=net00 \
 -device virtio-rng-pci \
 -netdev type=user,id=net00 \
--drive if=virtio,file=alpine-riscv64-2025-10-30.qcow2 \
+-drive if=virtio,file=alpine-riscv64-2025-10-31.qcow2 \
 -drive file=RISCV_VIRT_CODE.fd,if=pflash,format=raw,readonly=on \
 -drive file=RISCV_VIRT_VARS.fd,if=pflash,format=raw \
--nographic \
--smp 4
+-drive file=cloud-init.qcow2,format=qcow2 \
+-nographic 

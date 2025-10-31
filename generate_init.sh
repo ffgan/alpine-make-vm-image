@@ -1,0 +1,1 @@
+cloud-localds --disk-format qcow2 cloud-init.qcow2 user-data.yaml
