@@ -144,6 +144,8 @@ jobs:
           sudo apt-get install qemu-utils
 
       - uses: actions/checkout@v4
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
 
       - name: Build image for riscv64 with UEFI mode
         run: |
